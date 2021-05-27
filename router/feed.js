@@ -14,20 +14,20 @@ const { Name, Post, Description } = require("../validation/feed");
 
 const router = express.Router();
 
-router.get("/getfeed/:id", getfeed);
+router.get("/get/:id", getfeed);
 
-router.get("/getallfeed", getAllfeed);
+router.get("/getall", getAllfeed);
 
-router.post("/createfeed", Name, Post, Description, createfeed);
+router.post("/create", Name, Post, Description, createfeed);
 
-router.post("/createallfeed", createAllfeed);
+router.post("/createall", createAllfeed);
 
-router.put("/updatefeed", updatefeed);
+router.put("/update", updatefeed);
 
-router.put("/updateallfeed", updateAllfeed);
+router.put("/updateall", updateAllfeed);
 
-router.delete("/deletefeed", deleteFeed);
+router.delete("/delete", deleteFeed);
 
-router.delete("/deleteallfeed", deleteAllfeed);
+router.delete("/deleteall", deleteAllfeed);
 
 module.exports = router;

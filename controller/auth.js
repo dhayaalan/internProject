@@ -6,17 +6,43 @@ exports.signUp = async (req, res) => {
   const EmailId = req.body.EmailId;
   const password = req.body.password;
   const pass = bcrypt.hashSync(password, 6);
-  await Auth.create({
+  const user = await Auth.create({
     userName: userName,
     EmailId: EmailId,
     Password: pass,
   });
+  const signuser = await Auth.findByPk(user.id, {
+    attributes: {
+      exclude: ["Password"],
+    },
+  });
   res.status(200).json({
-    userName: userName,
-    EmailId: EmailId,
+    signuser: signuser,
   });
 };
 
-exports.signOut = async (req, res, next) => {
-  res.status(200).json({ message: "SignOut Sucessfully:" });
+exports.signIn = async (req, res) => {
+  const EmailId = req.body.EmailId;
+  const userName = req.body.userName;
+  const password = req.body.password;
+  const pass = bcrypt.hashSync(password,6);
+  const user = await Auth.findOne({
+    where: {
+      EmailId: req.body.EmailId,
+      userName: req.body.userName,
+    },
+  });
+  if (!user) {
+    return res.status(404).json({
+      message: "sign up first",
+    });
+  }
+  if (user.get("Password") !== pass) {
+    return res.status(404).json({
+      message: "Password is incorrect",
+    });
+  }
+  res.status(200).json({
+    message: "Sign in sucessfull",
+  });
 };
