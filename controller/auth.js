@@ -25,7 +25,6 @@ exports.signIn = async (req, res) => {
   const EmailId = req.body.EmailId;
   const userName = req.body.userName;
   const password = req.body.password;
-  const pass = bcrypt.hashSync(password,6);
   const user = await Auth.findOne({
     where: {
       EmailId: req.body.EmailId,
@@ -37,7 +36,8 @@ exports.signIn = async (req, res) => {
       message: "sign up first",
     });
   }
-  if (user.get("Password") !== pass) {
+  const pass = bcrypt.compareSync(password, user.Password);
+  if (pass) {
     return res.status(404).json({
       message: "Password is incorrect",
     });
