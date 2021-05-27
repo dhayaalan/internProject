@@ -82,14 +82,10 @@ exports.updateAllfeed = async (req, res) => {
 };
 
 exports.deleteFeed = async (req, res) => {
-  const name = req.body.name;
-  const post = req.body.post;
-  const description = req.body.description;
+  const id = req.body.id;
   const deletedData = await Feed.destroy({
     where: {
-      name: name,
-      post: post,
-      description: description,
+      id: id,
     },
   });
   res.status(200).json({
@@ -98,9 +94,15 @@ exports.deleteFeed = async (req, res) => {
 };
 
 exports.deleteAllfeed = async (req, res) => {
-  const deletedallfeed = await Feed.destroy({ truncate: true });
+  const ids = req.body.ids;
+  for (id of ids) {
+    const deletedallfeed = await Feed.destroy({
+      where: {
+        id: id,
+      },
+    });
+  }
   res.status(200).json({
-    deletedallfeed: deletedallfeed,
     message: "Deleted all the feeds",
   });
 };
