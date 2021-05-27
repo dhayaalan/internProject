@@ -12,7 +12,7 @@ app.use("/auth", AuthRouter);
 
 seq
   .sync({ force: false, alter: true })
-  .then((result) => app.listen(4000, () => console.log("App Listening")))
+  .then((result) => app.listen(4000, () => console.log("App Listening in port 4000")))
   .catch((err) => {
     console.log(err);
   });

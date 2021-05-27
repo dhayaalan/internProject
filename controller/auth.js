@@ -1,19 +1,19 @@
 const Auth = require("../model/auth");
-const { Password } = require("../validation/auth");
 const bcrypt = require("bcryptjs");
 
-exports.signIn = async (req, res) => {
+exports.signUp = async (req, res) => {
   const userName = req.body.userName;
   const EmailId = req.body.EmailId;
   const password = req.body.password;
-  const pass = bcrypt.hashSync(password,6);
-  const signin = await Auth.create({
+  const pass = bcrypt.hashSync(password, 6);
+  await Auth.create({
     userName: userName,
     EmailId: EmailId,
     Password: pass,
   });
   res.status(200).json({
-    signin: signin,
+    userName: userName,
+    EmailId: EmailId,
   });
 };
 

@@ -21,7 +21,7 @@ const EmailId = [
 ];
 
 const Password = [
-  body("Password")
+  body("password")
     .not()
     .trim()
     .isEmpty()

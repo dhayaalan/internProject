@@ -66,7 +66,7 @@ exports.updateAllfeed = async (req, res) => {
       {
         name: updatedfeed.name,
         post: updatedfeed.post,
-        description: updatedfeed.description
+        description: updatedfeed.description,
       },
       {
         where: {
@@ -74,9 +74,33 @@ exports.updateAllfeed = async (req, res) => {
         },
       }
     );
-   feeds.push(await Feed.findByPk(updatedfeed.id));
+    feeds.push(await Feed.findByPk(updatedfeed.id));
   }
   res.status(200).json({
     feeds: feeds,
+  });
+};
+
+exports.deleteFeed = async (req, res) => {
+  const name = req.body.name;
+  const post = req.body.post;
+  const description = req.body.description;
+  const deletedData = await Feed.destroy({
+    where: {
+      name: name,
+      post: post,
+      description: description,
+    },
+  });
+  res.status(200).json({
+    deletedData: deletedData,
+  });
+};
+
+exports.deleteAllfeed = async (req, res) => {
+  const deletedallfeed = await Feed.destroy({ truncate: true });
+  res.status(200).json({
+    deletedallfeed: deletedallfeed,
+    message: "Deleted all the feeds",
   });
 };

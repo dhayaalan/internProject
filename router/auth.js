@@ -1,12 +1,12 @@
 const express = require("express");
-const AuthController = require("../controller/auth");
+const { signUp, signOut } = require("../controller/auth");
 // const { erroradmin } = require("../middleware/isAuth");
 const { Username, EmailId, Password } = require("../validation/auth");
 
 const router = express.Router();
 
-router.post("/signin", Username, EmailId, Password, AuthController.signIn);
+router.post("/signup", Username, EmailId, Password, signUp);
 
-router.get("/signOut", Username, EmailId, Password, AuthController.signOut);
+router.get("/signOut", Username, EmailId, Password, signOut);
 
 module.exports = router;
