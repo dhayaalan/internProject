@@ -1,5 +1,7 @@
 const Feed = require("../model/feed");
 
+
+//Get Single Post 
 exports.getfeed = async (req, res) => {
   const feed = await Feed.findByPk(req.params.id);
   res.status(200).json({
@@ -7,6 +9,8 @@ exports.getfeed = async (req, res) => {
   });
 };
 
+
+//Get Multiple  Post 
 exports.getAllfeed = async (req, res) => {
   const feed = await Feed.findAll();
   res.status(200).json({
@@ -14,6 +18,8 @@ exports.getAllfeed = async (req, res) => {
   });
 };
 
+
+//Create Single Post 
 exports.createfeed = async (req, res) => {
   const name = req.body.name;
   const post = req.body.post;
@@ -28,6 +34,8 @@ exports.createfeed = async (req, res) => {
   });
 };
 
+
+//Create Multiple Post
 exports.createAllfeed = async (req, res) => {
   const posts = req.body.posts;
   const morepost = await Feed.bulkCreate(posts);
@@ -36,6 +44,8 @@ exports.createAllfeed = async (req, res) => {
   });
 };
 
+
+//Update Single Post 
 exports.updatefeed = async (req, res) => {
   const name = req.body.name;
   const post = req.body.post;
@@ -58,6 +68,8 @@ exports.updatefeed = async (req, res) => {
   });
 };
 
+
+//Update Multiple Post
 exports.updateAllfeed = async (req, res) => {
   let feeds = [];
   const updatedfeeds = req.body.updatedfeeds;
@@ -81,6 +93,8 @@ exports.updateAllfeed = async (req, res) => {
   });
 };
 
+
+//Delete Single Post
 exports.deleteFeed = async (req, res) => {
   const id = req.body.id;
   const deletedData = await Feed.destroy({
@@ -93,6 +107,9 @@ exports.deleteFeed = async (req, res) => {
   });
 };
 
+
+
+//Delete Multiple Post
 exports.deleteAllfeed = async (req, res) => {
   const ids = req.body.ids;
   for (id of ids) {

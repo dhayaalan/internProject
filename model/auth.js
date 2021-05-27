@@ -1,6 +1,8 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../util/database");
 
+
+//Database Fields 
 class Auth extends Model {}
 Auth.init(
   {
